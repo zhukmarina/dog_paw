@@ -1,0 +1,49 @@
+.rootSearch{
+    display: flex;
+    width: 680px;
+    align-items:center;
+    justify-content: flex-end;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #FBE0DC;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .searchInput:focus {
+    border-color: #FBE0DC;
+    box-shadow: 0 0 5px #FF868E;
+  }
+
+.searchIcon{
+    width: 40px;
+height: 40px;
+border-radius: 10px;
+background: #FBE0DC;
+color:#FF868E;
+
+
+}
+
+.btnLikePanel{
+    display: flex;
+    align-items:center;
+    justify-content: space-around;
+    color:#FF868E;
+}
+
+.btnLike{
+    width: 60px;
+    height: 60px;
+    border-radius: 20px;
+    background: #FFF;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    margin-left: 10px;
+}
+

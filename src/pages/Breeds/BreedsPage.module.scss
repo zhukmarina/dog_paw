@@ -1,0 +1,22 @@
+.wrapper{
+    width: 1440px;
+    display: flex;
+    justify-content: space-around;
+    background-color:#F8F8F7;
+    
+}
+
+.rightSideBreeds{
+    display: flex;
+    align-items:center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+.breedsFilter{
+    width: 680px;
+    border-radius: 20px;
+    background: #FFF;
+    padding: 20px;
+}

@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ 
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.container {
+  max-width: 1440px;
+  padding: 0 15px;
+  margin: 0 auto;
+  flex: 1 0 auto;
+}
+
+#root,
+html,
+body {
+  height: 100%;
+  background-color:#F8F8F7;
+}
+
+.main_content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+.main{
+  width: 1440px;
+  display: flex;
+  justify-content: space-around;
+  background-color:#F8F8F7;
+}

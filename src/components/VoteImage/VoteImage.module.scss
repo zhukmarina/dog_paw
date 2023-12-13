@@ -1,0 +1,31 @@
+.cardMedia {
+    width: 640px;
+    height: 500px;
+    border-radius: 20px;
+   
+    background-color: #FFF;
+    
+
+    img{
+        width: 640px;
+        height: 480px;
+        object-fit: contain;
+        border-radius: 50px;
+    }
+
+}
+
+.cardActions{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    svg{
+       width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    color:#FF868E; 
+    }
+    
+    
+}
+

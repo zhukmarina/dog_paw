@@ -5,20 +5,25 @@ import Box from '@mui/material/Box';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import styles from "../LikedDogsList/LikedDogsList.module.scss"
+import { useUserAuth } from '../../context/UserAuthContext';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import IconButton from '@mui/material/IconButton';
 
 
 const DislikedDogsList = () => {
   const dispatch = useDispatch();
+  const { user } = useUserAuth();
   const { dogVotes, isLoading, error } = useSelector((state) => state.votingReducer);
 
   useEffect(() => {
-    dispatch(fetchVotes());
-  }, [dispatch]);
+    dispatch(fetchVotes(user.uid)); 
+  }, [dispatch, user.uid]);
 
-  const handleDeleteVote = (voteId) => {
-    dispatch(deleteVote(voteId)); 
-    
+  const handleDeleteVote = (userId, voteId) => {
+    dispatch(deleteVote(userId, voteId)); 
   };
+
 
   return (
     <div className={styles.rightSideLike}>
@@ -32,7 +37,7 @@ const DislikedDogsList = () => {
           <Box sx={{ width: 640, height: 600, overflowY: 'scroll' }}>
             <ImageList variant="masonry" cols={3} gap={8}>
               {dogVotes.map((vote) => (
-                (vote.value === 0) ?
+                (vote.value === -1) ?
                   (
                     <ImageListItem key={vote.id}>
                       <img
@@ -41,7 +46,25 @@ const DislikedDogsList = () => {
                         alt={vote.id}
                         loading="lazy"
                       />
-                     <button onClick={() => handleDeleteVote(vote.id)}>X</button> 
+                      <ImageListItemBar
+                      sx={{
+                        background:
+                          'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+                          'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                      }}
+
+                      position="top"
+                      actionIcon={
+                        <IconButton
+                          sx={{ color: 'white' }}
+                          onClick={() => handleDeleteVote(user.uid, vote.id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      }
+                      actionPosition="right"
+                    />
+
                     </ImageListItem>
                   ) : (null)
               ))}

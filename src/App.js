@@ -6,31 +6,33 @@ import Header from './components/Header/Header';
 import Routers from './Routers/Routers';
 import { BrowserRouter as Router } from "react-router-dom";
 import LeftSide from "./components/LeftSide/LeftSide";
+import { UserAuthContextProvider } from "../src/context/UserAuthContext"
 
-// import LeftSide from './components/LeftSide/LeftSide';
-// import {
-//   BrowserRouter,
-//   Routes,
-//   Route,
-//   Link,
-// } from "react-router-dom";
-// import BreedsPage from './pages/Breeds/BreedsPage';
+
 
 function App() {
   return (<Provider store={appStore}>
     <Router>
+      <UserAuthContextProvider>
         
-        <div >
+        <div className={styles.app}>
+        
           <Header />
           <main className={styles.main}>
+          <div className={styles.leftSide}>
+            
+          
           <LeftSide/>
+          </div>
+          <div className={styles.rightSide}>
           
           <Routers />
           
+          </div>
           </main>
-          {/* <Footer /> */}
-          
+        
         </div>
+        </UserAuthContextProvider>
       </Router>
     </Provider>
   );

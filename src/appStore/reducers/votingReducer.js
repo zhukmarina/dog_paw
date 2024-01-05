@@ -19,7 +19,7 @@ const initialState = {
   isLoading: false,
   voteAdded: false,
   error: null,
-  dogVotes: [], // Об'єкт для відстеження голосів для кожної собаки
+  dogVotes: [],
   isDeleting: false,
   deleteError: null,
 };

@@ -1,19 +1,11 @@
 import React, { useEffect, } from 'react';
-import { Box, CircularProgress, } from '@mui/material';
+import { Box, LinearProgress} from '@mui/material';
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { fetchDogs } from "../../appStore/actionCreators/actionCreators";
 import { Link, } from "react-router-dom"
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-
-
 
 function ItemContainer() {
 
@@ -29,11 +21,11 @@ console.log(dogs)
         <>
             <div>
                 {loading ? (
-                    <CircularProgress color="secondary" />
+                    <LinearProgress color="secondary" />
                 ) : filteredDog.length === 0
                     ? (
 
-                        <Box sx={{ width: 600, height: 630, overflowY: 'scroll' }}>
+                        <Box sx={{  height: 630, overflowY: 'scroll' }}>
                             <ImageList variant="masonry" cols={3} gap={8}>
                                 {dogs.map((item) => (<Link
                                     to={`/${item.name}`}

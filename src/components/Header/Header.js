@@ -11,7 +11,7 @@ function Header() {
                     <ul className={styles.navList}>
                         <li className={styles.logo}>
                         <Link
-                                    to={`/`}>
+                                    to={`/home`}>
                             <div className={styles.logo}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <path d="M7.84082 12.4577C7.84082 9.90778 9.9079 7.8407 12.4578 7.8407L19.3832 7.8407C21.9331 7.8407 24.0002 9.90778 24.0002 12.4577C24.0002 15.0075 21.9331 17.0746 19.3832 17.0746H12.4578C9.9079 17.0746 7.84082 15.0075 7.84082 12.4577Z" fill="#FF868E" />

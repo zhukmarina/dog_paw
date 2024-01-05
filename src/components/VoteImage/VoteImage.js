@@ -6,11 +6,10 @@ import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfi
 import styles from './VoteImage.module.scss';
 
 const VoteImage = ({ imageUrl, onVote, onNextImage }) => {
-  const dispatch = useDispatch();
 
   const handleVote = (liked) => {
-    onVote(dispatch, liked);
-    onNextImage(); 
+    onVote(liked);
+    onNextImage();
   };
 
   return (

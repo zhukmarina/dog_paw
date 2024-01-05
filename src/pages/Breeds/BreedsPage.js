@@ -6,9 +6,9 @@ import styles from "./BreedsPage.module.scss"
 import NavBarBreeds from "../../components/NavBarBreeds/NavBarBreeds";
 
 
-
-
 function BreedsPage() {
+
+  
   return (
     <>
 

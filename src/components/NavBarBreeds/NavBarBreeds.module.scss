@@ -2,5 +2,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+    .MuiFormControlLabel-root{
+    border-color: red;
 }
+}
+
+.customButton{
+    width: 40px;
+    height: 40px;
+    border: 1px solid #FBE0DC;
+    border-radius: 20%;
+    color:#FF868E;
+
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+

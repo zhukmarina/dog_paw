@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./LeftSide.module.scss"
-
 import { NavLink } from "react-router-dom";
 
+
 function LeftSide() {
+    
     return (
         <div className={styles.leftSide}>
 
@@ -11,10 +12,10 @@ function LeftSide() {
                 
                 <div className={styles.greeting} >
                     <h1>Hi!👋</h1>
-                    <span>Welcome to MacPaw Bootcamp 2023</span>
+                    <span>Welcome to Dog Paw web-site</span>
                 </div>
                 <div className={styles.start}>
-                    <h3>Lets start using The Cat API</h3>
+                    <h3>Explore the diversity of dog breeds</h3>
                     <div className={styles.navigationsWrapper}>
                     
                         <div className={styles.navigations}>

@@ -47,7 +47,7 @@ const Search = () => {
           placeholder="Search"
           className={styles.searchInput} 
           onChange={handleSearchChange}
-          onKeyPress={handleKeyPress}
+          onClick={handleKeyPress}
           value={search}
           
           startAdornment={

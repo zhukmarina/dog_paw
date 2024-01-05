@@ -31,19 +31,7 @@ const fetchDogsForVotingFail = (error) => ({
   payload: error,
 });
 
-// const fetchVotesStart = () => ({
-//   type: VOTES_FETCH_START,
-// });
 
-// const fetchVotesSuccess = (votes) => ({
-//   type: VOTES_FETCH_SUCCESS,
-//   payload: votes,
-// });
-
-// const fetchVotesFailure = (error) => ({
-//   type: VOTES_FETCH_FAILURE,
-//   payload: error,
-// });
 
 export const deleteVoteRequest = () => ({
   type: DELETE_VOTE_REQUEST,
@@ -76,7 +64,7 @@ export const voteForDog = (dogId) => ({
   payload: dogId,
 });
 
-export const addVote = (currentDogId, value) => {
+export const addVote = (userId, currentDogId, liked) => {
   return async (dispatch) => {
     dispatch({ type: ADD_VOTE_REQUEST }); 
     try {
@@ -87,16 +75,16 @@ export const addVote = (currentDogId, value) => {
           'x-api-key': 'live_kssrbyIko7YpwOartoJZPYx2nHw3N8AQgYc2QgxYmSHsECmqg49E665tQREEndhU',
         },
         body: JSON.stringify({
+          sub_id: userId,
           image_id: currentDogId,
-          value: value === true ? 1 : 0, 
-          
+          value: liked, 
         }),
       });
 
       const data = await response.json();
       console.log(data);
       dispatch({ type: ADD_VOTE_SUCCESS, payload: data });
-      dispatch(fetchVotes());
+      dispatch(fetchVotes(userId));
 
     } catch (error) {
       dispatch({ type: ADD_VOTE_FAILURE, payload: error.message });
@@ -105,23 +93,22 @@ export const addVote = (currentDogId, value) => {
 };
 
 
-
-export const fetchVotes = () => {
-  
+export const fetchVotes = (userId) => {
   return async (dispatch) => {
     dispatch({ type: VOTES_FETCH_START });
 
+   
+
     try {
-      const response = await fetch(`https://api.thedogapi.com/v1/votes`, {
-        method: 'GET',
+      const response = await axios.get(`https://api.thedogapi.com/v1/votes?sub_id=${userId}`, {
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': 'live_kssrbyIko7YpwOartoJZPYx2nHw3N8AQgYc2QgxYmSHsECmqg49E665tQREEndhU',
         },
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      if (response.status === 200) {
+        const data = response.data;
         dispatch({ type: VOTES_FETCH_SUCCESS, payload: data });
         console.log('Votes data:', data); 
       } else {
@@ -133,7 +120,7 @@ export const fetchVotes = () => {
   };
 };
 
-export const deleteVote = (voteId) => {
+export const deleteVote = (userId, voteId) => {
   return async (dispatch) => {
     dispatch(deleteVoteRequest());
 
@@ -147,7 +134,7 @@ export const deleteVote = (voteId) => {
       });
 
       if (response.ok) {
-        dispatch(deleteVoteSuccess(voteId)); // Передача voteId до deleteVoteSuccess
+        dispatch(deleteVoteSuccess(voteId)); 
       } else {
         throw new Error('Failed to delete vote');
       }
@@ -156,4 +143,5 @@ export const deleteVote = (voteId) => {
     }
   };
 };
+
 

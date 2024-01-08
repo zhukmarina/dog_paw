@@ -10,4 +10,4 @@ SITE FUNCTIONALITY:
 * adding/removing  to favorites;
 * Dog search.
 
-![Image alt](https://https://github.com/zhukmarina/dog_paw/raw/main/img/image.png)
+![Image alt](https://https://github.com/zhukmarina/dog_paw/raw/main/public/img/image.png)

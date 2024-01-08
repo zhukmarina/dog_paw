@@ -71,11 +71,12 @@
         background-image: url(../../../public/img/phone.png);
     }
 
-   
-
+    
 
 }
-
+a{
+        text-decoration: none; 
+    }
 
 .navBtn {
     width: 138px;
@@ -83,6 +84,10 @@
     border-radius: 10px;
     background-color: #FFF;
     margin-top: 14px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+   
 
     p {
         color: #FF868E;

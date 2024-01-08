@@ -1,12 +1,13 @@
 "Dog Paw"
 
-Додаток використовує API для отримання фотографій собак та голосів користувачів. Користувачі можуть додавати свої голоси, а також видаляти їх. Додаток також має функціонал завантаження списку фотографій собак для голосування.
+Code Technologies: REACT+REDUX;
+SITE FUNCTIONALITY:
+* User registration and authorization;
+* Voting: adding/removing a vote, viewing votes for an authorized user;
+* Breeds: obtaining dog photos from an API, FILTERING by breeds;
+* Retrieving a SINGLE DOG with a photo CAROUSEL and detailed breed information;
+* Gallery: ability to UPLOAD a photo of your pet;
+* adding/removing  to favorites;
+* Dog search.
 
-Основні можливості проєкту включають:
-
-Перегляд фотографій собак: 
-Користувачі можуть переглядати фотографії собак, відображені у формі списку або галереї.
-Голосування за собак: 
-Користувачі мають можливість голосувати за сподобані фотографії собак, виражаючи свої вподобання.
-Видалення голосів: Користувачі можуть видаляти свої голоси з фотографій собак, які раніше проголосували.
-Отримання інформації про голоси: Проєкт може надавати інформацію про голоси користувачів, отримані з API.
+![Image alt](https://https://github.com/zhukmarina/dog_paw/raw/main/img/image.png)

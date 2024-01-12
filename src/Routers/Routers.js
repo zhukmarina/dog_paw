@@ -9,6 +9,7 @@ import DislikedDogsList from "../pages/DislikedDogsList/DislikedDogsList"
 import {Routes,Route,} from "react-router-dom";
 import SignIn from '../pages/SignIn/SignIn';
 import SignUp from '../pages/SignUp/SignUp';
+import FavouritesPage from '../pages/FavouritePage/FavouritePage';
 
 function Routers() {
   return (
@@ -22,6 +23,7 @@ function Routers() {
         <Route path="/:name" element={<SinglePetPage />}/>
         <Route path="/like" element={<LikedDogsList />}/>
         <Route path="/dislike" element={<DislikedDogsList />}/>
+        <Route path="/favourites" element={<FavouritesPage/>} />
      </Routes>
     
   );

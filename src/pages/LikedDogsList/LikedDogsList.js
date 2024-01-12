@@ -9,6 +9,7 @@ import { useUserAuth } from '../../context/UserAuthContext';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography'; 
 
 const LikedDogsList = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const LikedDogsList = () => {
         <p>Error: {error}</p>
       ) : (
         <div>
-          <h2>Liked dogs</h2>
+          <Typography variant="h4">{user && user.displayName}, you liked this guy:</Typography>
           <Box sx={{ width: 640, height: 600, overflowY: 'scroll' }}>
             <ImageList variant="masonry" cols={3} gap={8}>
               {dogVotes.map((vote) => (

@@ -9,20 +9,24 @@ import { fetchDogs,searchFetchDogs } from "../../appStore/actionCreators/actionC
 import { debounce } from 'lodash';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Link } from  "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useUserAuth } from "../../context/UserAuthContext";
 
 const Search = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const debouncedSearch = debounce((query) => dispatch(searchFetchDogs(query)), 300);
+  let navigate = useNavigate();
+  const { user } = useUserAuth();
 
   const handleSearchChange = (event) => {
     const query = event.target.value;
     setSearch(query);
-    if (query.length >= 3) { // Виконання пошуку після введення 3 символів (можна встановити іншу кількість)
-      debouncedSearch(query); // Виклик функції затриманого пошуку
+    if (query.length >= 3) { 
+      debouncedSearch(query); 
     } else {
-      dispatch(fetchDogs()); // Якщо введено менше 3 символів, викликаємо інший метод, наприклад, fetchDogs
+      dispatch(fetchDogs()); 
     }
   };
 
@@ -35,7 +39,18 @@ const Search = () => {
   };
 
   const clearSearchInput = () => {
-    setSearch(""); // Очистка поля введення
+    setSearch(""); 
+  };
+
+  const { logOut } = useUserAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error", error);
+    }
   };
 
   return (
@@ -60,8 +75,13 @@ const Search = () => {
       
       <div className={styles.btnLikePanel}>
       <Link to="/like"><div className={styles.btnLike}><SentimentSatisfiedOutlinedIcon color="danger" /></div></Link>
-      <div className={styles.btnLike}><FavoriteBorderOutlinedIcon /></div>
+      <Link to="/favourites"><div className={styles.btnLike}><FavoriteBorderOutlinedIcon /></div></Link>
       <Link to="/dislike"><div className={styles.btnLike}><SentimentVeryDissatisfiedIcon /></div></Link>
+      {user && user.displayName && (
+  <div className={styles.btnLike} onClick={handleLogout}>
+    <LogoutIcon />
+  </div>
+)}
 </div>
     </div>
   );

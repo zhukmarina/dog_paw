@@ -13,6 +13,10 @@ import {
   DELETE_VOTE_REQUEST,
   DELETE_VOTE_SUCCESS,
   DELETE_VOTE_FAILURE,
+  FETCH_FAVOURITES ,
+FAVOURITE_IMAGE,
+DELETE_FAVOURITE_IMAGE,
+CLEAR_ERROR,
 } from "../actions/actions";
 
 
@@ -96,9 +100,6 @@ export const addVote = (userId, currentDogId, liked) => {
 export const fetchVotes = (userId) => {
   return async (dispatch) => {
     dispatch({ type: VOTES_FETCH_START });
-
-   
-
     try {
       const response = await axios.get(`https://api.thedogapi.com/v1/votes?sub_id=${userId}`, {
         headers: {
@@ -145,3 +146,63 @@ export const deleteVote = (userId, voteId) => {
 };
 
 
+export const addFavouriteImage = (currentDogId, userId) => async (dispatch) => {
+  try {
+    const post_body = { image_id: currentDogId, sub_id: userId };
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-api-key': 'live_kssrbyIko7YpwOartoJZPYx2nHw3N8AQgYc2QgxYmSHsECmqg49E665tQREEndhU',
+    };
+    await axios.post('https://api.thedogapi.com/v1/favourites', post_body, { headers });
+    dispatch({ type: FAVOURITE_IMAGE, image_id: currentDogId });
+  } catch (error) {
+    console.error(error);
+    dispatch({ type: CLEAR_ERROR, payload: error.response.data.message });
+  }
+};
+
+export const fetchFavourites = (userId) => async (dispatch, getState) => {
+  try {
+    const query_params = {
+      limit: getState().limit,
+      order: 'DESC',
+      page: getState().page - 1,
+      sub_id: userId, // Додано sub_id до параметрів запиту
+    };
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-api-key': 'live_kssrbyIko7YpwOartoJZPYx2nHw3N8AQgYc2QgxYmSHsECmqg49E665tQREEndhU',
+    };
+
+    const response = await axios.get('https://api.thedogapi.com/v1/favourites', {
+      params: query_params,
+      headers: headers,
+    });
+
+    dispatch({
+      type: FETCH_FAVOURITES,
+      payload: {
+        favourites: response.data,
+        pagination_count: response.headers['pagination-count'],
+      },
+    });
+
+    dispatch(clearError());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+export const deleteFavouriteImage = (favourite_id) => async (dispatch) => {
+  try {
+    await axios.delete(`https://api.thedogapi.com/v1/favourites/${favourite_id}`);
+    dispatch({ type: DELETE_FAVOURITE_IMAGE });
+    dispatch(fetchFavourites());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const clearError = () => ({ type: CLEAR_ERROR });

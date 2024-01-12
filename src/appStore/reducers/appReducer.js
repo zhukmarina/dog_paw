@@ -7,8 +7,8 @@ import {votingReducer} from "./votingReducer"
 export const  appReducer = combineReducers(
     {
         getItemReducer,  
-        votingReducer
-        
+        votingReducer,
+       
         
     }
 )

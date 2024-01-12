@@ -12,6 +12,10 @@ import {
   DELETE_VOTE_REQUEST,
   DELETE_VOTE_SUCCESS,
   DELETE_VOTE_FAILURE,
+  FETCH_FAVOURITES ,
+  FAVOURITE_IMAGE,
+  DELETE_FAVOURITE_IMAGE,
+  CLEAR_ERROR,
 } from '../actions/actions';
 
 const initialState = {
@@ -22,6 +26,12 @@ const initialState = {
   dogVotes: [],
   isDeleting: false,
   deleteError: null,
+  
+  favourites: [],
+  page: 1,
+  error_message: null,
+  limit: 3,
+  pagination_count: 0,
 };
 
 export const votingReducer = (state = initialState, action) => {
@@ -124,6 +134,25 @@ export const votingReducer = (state = initialState, action) => {
         isDeleting: false,
         deleteError: action.payload,
       };
+
+    case FETCH_FAVOURITES:
+      return {
+        ...state,
+        favourites: action.payload.favourites,
+        pagination_count: action.payload.pagination_count,
+      };
+    case FAVOURITE_IMAGE:
+      const image_id = action.image_id; 
+      return {
+        ...state,
+        favourites: [...state.favourites, { image_id, sub_id: 'User-123' }], // Змінено, щоб додати об'єкт безпосередньо тут
+      };
+
+    case DELETE_FAVOURITE_IMAGE:
+      return state;
+
+    case CLEAR_ERROR:
+      return { ...state, error_message: action.payload };
 
     default:
       return state;

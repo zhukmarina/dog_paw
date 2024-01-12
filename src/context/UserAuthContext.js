@@ -3,7 +3,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut
+  signOut,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
 
@@ -15,9 +16,20 @@ export function UserAuthContextProvider({ children }) {
   function logIn(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
   }
-  function signUp(email, password,displayName) {
-    return createUserWithEmailAndPassword(auth, email, password, displayName);
+
+  function signUp(email, password, displayName) {
+    return createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        const user = userCredential.user;
+
+        // Встановлення displayName для об'єкта користувача
+        updateProfile(user, { displayName });
+
+        return userCredential;
+      }
+    );
   }
+
   function logOut() {
     return signOut(auth);
   }

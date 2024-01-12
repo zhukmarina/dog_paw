@@ -10,9 +10,6 @@ function MasonryGrid() {
 
     const {items}  = useSelector(( {items} ) => items, shallowEqual);
 
- 
-
-
     return (
       <Grid container spacing={2}>
         {items.map((item) => (

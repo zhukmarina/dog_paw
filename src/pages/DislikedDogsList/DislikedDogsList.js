@@ -9,6 +9,7 @@ import { useUserAuth } from '../../context/UserAuthContext';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography'; 
 
 
 const DislikedDogsList = () => {
@@ -17,13 +18,12 @@ const DislikedDogsList = () => {
   const { dogVotes, isLoading, error } = useSelector((state) => state.votingReducer);
 
   useEffect(() => {
-    dispatch(fetchVotes(user.uid)); 
+    dispatch(fetchVotes(user.uid));
   }, [dispatch, user.uid]);
 
   const handleDeleteVote = (userId, voteId) => {
-    dispatch(deleteVote(userId, voteId)); 
+    dispatch(deleteVote(userId, voteId));
   };
-
 
   return (
     <div className={styles.rightSideLike}>
@@ -33,26 +33,24 @@ const DislikedDogsList = () => {
         <p>Error: {error}</p>
       ) : (
         <div>
-          <h2>Disliked dogs</h2>
+          <Typography variant="h4">{user && user.displayName},you disliked this guy:</Typography>
           <Box sx={{ width: 640, height: 600, overflowY: 'scroll' }}>
             <ImageList variant="masonry" cols={3} gap={8}>
               {dogVotes.map((vote) => (
-                (vote.value === -1) ?
-                  (
-                    <ImageListItem key={vote.id}>
-                      <img
-                        srcSet={`${vote.image.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        src={`${vote.image.url}?w=248&fit=crop&auto=format`}
-                        alt={vote.id}
-                        loading="lazy"
-                      />
-                      <ImageListItemBar
+                vote.value === -1 ? (
+                  <ImageListItem key={vote.id}>
+                    <img
+                      srcSet={`${vote.image.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                      src={`${vote.image.url}?w=248&fit=crop&auto=format`}
+                      alt={vote.id}
+                      loading="lazy"
+                    />
+                    <ImageListItemBar
                       sx={{
                         background:
                           'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
                           'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
                       }}
-
                       position="top"
                       actionIcon={
                         <IconButton
@@ -64,9 +62,8 @@ const DislikedDogsList = () => {
                       }
                       actionPosition="right"
                     />
-
-                    </ImageListItem>
-                  ) : (null)
+                  </ImageListItem>
+                ) : null
               ))}
             </ImageList>
           </Box>
@@ -75,5 +72,7 @@ const DislikedDogsList = () => {
     </div>
   );
 };
+
+
 
 export default DislikedDogsList;

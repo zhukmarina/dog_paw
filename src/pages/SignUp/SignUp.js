@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -13,30 +11,26 @@ import Container from '@mui/material/Container';
 import { Link, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 
-
 export default function SignUp() {
-
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState(""); // Додали state для displayName
   const { signUp } = useUserAuth();
   let navigate = useNavigate();
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
-      await signUp(email, password,);
+      await signUp(email, password, displayName); // Передали displayName
       navigate("/");
     } catch (err) {
       setError(err.message);
     }
   };
 
-
   return (
-
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
@@ -63,8 +57,8 @@ export default function SignUp() {
                 fullWidth
                 id="firstName"
                 label="First Name"
-
                 autoFocus
+                onChange={(e) => setDisplayName(e.target.value)} // Додали onChange для displayName
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -100,7 +94,6 @@ export default function SignUp() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
-
           </Grid>
           <Button
             type="submit"
@@ -119,8 +112,6 @@ export default function SignUp() {
           </Grid>
         </Box>
       </Box>
-
     </Container>
-
   );
 }

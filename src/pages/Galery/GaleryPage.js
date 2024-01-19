@@ -1,8 +1,5 @@
 import React from "react";
 import styles from "./GaleryPage.module.scss";
-import ItemContainer from "../../components/ItemContainer/ItemContainer";
-
-
 import Button from '@mui/joy/Button';
 import SvgIcon from '@mui/joy/SvgIcon';
 import { styled } from '@mui/joy';

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-
+import Skeleton from '@mui/material/Skeleton';
 const BreedCarousel = ({ id }) => {
   const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -16,8 +16,10 @@ const BreedCarousel = ({ id }) => {
         const data = await res.json();
         setImages(data.map((image) => image.url));
         console.log(data);
+        setIsLoading(false); 
       } catch (error) {
         console.error(error);
+        setIsLoading(false);
       }
     };
 
@@ -33,13 +35,19 @@ const BreedCarousel = ({ id }) => {
   };
 
   return (
-    <Slider {...settings}>
-      {images.map((imageUrl, index) => (
-        <div key={index}>
-          <img src={imageUrl} alt={`Breed ${index}`} />
-        </div>
-      ))}
-    </Slider>
+    <>
+      {isLoading ? (
+        <Skeleton variant="rectangular" width={640} height={300} />
+      ) : (
+        <Slider {...settings}>
+          {images.map((imageUrl, index) => (
+            <div key={index}>
+              <img src={imageUrl} alt={`Breed ${index}`} />
+            </div>
+          ))}
+        </Slider>
+      )}
+    </>
   );
 };
 

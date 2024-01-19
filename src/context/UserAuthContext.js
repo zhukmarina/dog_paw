@@ -21,10 +21,7 @@ export function UserAuthContextProvider({ children }) {
     return createUserWithEmailAndPassword(auth, email, password).then(
       (userCredential) => {
         const user = userCredential.user;
-
-        // Встановлення displayName для об'єкта користувача
         updateProfile(user, { displayName });
-
         return userCredential;
       }
     );

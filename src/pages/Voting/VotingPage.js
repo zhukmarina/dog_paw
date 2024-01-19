@@ -5,9 +5,10 @@ import { fetchDogsForVoting, addVote, fetchFavourites, addFavouriteImage, delete
 import VoteImage from '../../components/VoteImage/VoteImage';
 import styles from './VotingPage.module.scss';
 import { useUserAuth } from '../../context/UserAuthContext';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const VotingPage = () => {
-  const { votingDogs, isLoading,  page, error_message, limit } = useSelector((state) => state.votingReducer);
+  const { votingDogs, isLoading,favourites } = useSelector((state) => state.votingReducer);
   const dispatch = useDispatch();
   const [currentDogIndex, setCurrentDogIndex] = useState(0);
   
@@ -22,14 +23,20 @@ const VotingPage = () => {
 
   const handleVote = (liked) => {
     const currentDogId = votingDogs[currentDogIndex]?.id;
-    if (currentDogId) {
+    if (user && currentDogId) {
       const value = liked ? 1 : -1;
       dispatch(addVote(user.uid, currentDogId, value));
+    }else{
+      Notify.failure('Please, login!');
     }
   };
 
   const handleFavouriteImage = (image_id) => {
+   if(user) {
     dispatch(addFavouriteImage(image_id, user.uid,));
+   }else{
+    Notify.failure('Please, login!');
+  }
   };
 
   const handleDeleteFavouriteImage = (favourite_id) => {
@@ -51,7 +58,9 @@ const VotingPage = () => {
           onNextImage={nextImage} 
           image_id={votingDogs[currentDogIndex].id}
           addFavourite={handleFavouriteImage} 
-          delFavourite={handleDeleteFavouriteImage} />
+          delFavourite={handleDeleteFavouriteImage}
+          favourites={favourites}
+           />
       ) : (
         <p>Ви проголосували за всіх собак!</p>
       )}

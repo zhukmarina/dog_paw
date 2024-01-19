@@ -5,13 +5,14 @@ import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDiss
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import styles from "./Search.module.scss"
-import { fetchDogs,searchFetchDogs } from "../../appStore/actionCreators/actionCreators";
+import { fetchDogs, searchFetchDogs } from "../../appStore/actionCreators/actionCreators";
 import { debounce } from 'lodash';
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import { Link, useNavigate } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useUserAuth } from "../../context/UserAuthContext";
+import LoginIcon from '@mui/icons-material/Login';
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -23,10 +24,10 @@ const Search = () => {
   const handleSearchChange = (event) => {
     const query = event.target.value;
     setSearch(query);
-    if (query.length >= 3) { 
-      debouncedSearch(query); 
+    if (query.length >= 3) {
+      debouncedSearch(query);
     } else {
-      dispatch(fetchDogs()); 
+      dispatch(fetchDogs());
     }
   };
 
@@ -39,7 +40,7 @@ const Search = () => {
   };
 
   const clearSearchInput = () => {
-    setSearch(""); 
+    setSearch("");
   };
 
   const { logOut } = useUserAuth();
@@ -55,34 +56,40 @@ const Search = () => {
 
   return (
     <div className={styles.rootSearch}>
-     
-         <div>
-         <input
+{user? (<div>
+        <input
           type="search"
           placeholder="Search"
-          className={styles.searchInput} 
+          className={styles.searchInput}
           onChange={handleSearchChange}
           onClick={handleKeyPress}
           value={search}
-          
+
           startAdornment={
             <InputAdornment position="start">
-              <SearchIcon className={styles.searchIcon} /> 
+              <SearchIcon className={styles.searchIcon} />
             </InputAdornment>
           }
         />
-    </div>
+      </div>):("")}
       
+
       <div className={styles.btnLikePanel}>
-      <Link to="/like"><div className={styles.btnLike}><SentimentSatisfiedOutlinedIcon color="danger" /></div></Link>
-      <Link to="/favourites"><div className={styles.btnLike}><FavoriteBorderOutlinedIcon /></div></Link>
-      <Link to="/dislike"><div className={styles.btnLike}><SentimentVeryDissatisfiedIcon /></div></Link>
-      {user && user.displayName && (
-  <div className={styles.btnLike} onClick={handleLogout}>
-    <LogoutIcon />
-  </div>
-)}
-</div>
+        {user && user.displayName ? (<>
+          <Link to="/like"><div className={styles.btnLike}><SentimentSatisfiedOutlinedIcon color="danger" /></div></Link>
+          <Link to="/favourites"><div className={styles.btnLike}><FavoriteBorderOutlinedIcon /></div></Link>
+          <Link to="/dislike"><div className={styles.btnLike}><SentimentVeryDissatisfiedIcon /></div></Link>
+
+
+          <div className={styles.btnLike} onClick={handleLogout}>
+            <LogoutIcon />
+          </div></>
+        ) : (<Link to="/">
+          <div className={styles.btnLike} >
+            <LoginIcon />
+          </div></Link>
+        )}
+      </div>
     </div>
   );
 

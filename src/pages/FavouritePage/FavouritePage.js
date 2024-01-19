@@ -2,51 +2,78 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFavourites, deleteFavouriteImage } from '../../appStore/actionCreators/voteActionCreators';
-import { Grid, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useUserAuth } from '../../context/UserAuthContext';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import styles from "../LikedDogsList/LikedDogsList.module.scss"
 
 const FavouritesPage = () => {
-  const { favourites, isLoading, error_message } = useSelector((state) => state.votingReducer);
+  const { favourites, isLoading,} = useSelector((state) => state.votingReducer);
   const dispatch = useDispatch();
   const { user } = useUserAuth();
 
   useEffect(() => {
     dispatch(fetchFavourites());
   }, [dispatch]);
-console.log(favourites)
+
   const handleDeleteFavouriteImage = (favourite_id) => {
     dispatch(deleteFavouriteImage(favourite_id));
   };
 
   return (
-    <div>
+    <div className={styles.rightSideLike}>
       {isLoading ? (
         <p>Loading...</p>
       ) : ( 
-        <>
-  {favourites.length > 0 ? (
-    <Grid container spacing={2}>
-      {favourites.map((favourite) => (
-        <Grid item xs={6} sm={4} md={3} key={favourite.id}>
-          {favourite.image && favourite.image.url ? (
-            <img
-              srcSet={`${favourite.image.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-              src={`${favourite.image.url}?w=248&fit=crop&auto=format`}
-              style={{ width: "100%", display: "block", borderRadius: "8px" }}
-              alt={favourite.name}
-            />
+        <> 
+        <Typography variant="h4">{user && user.displayName}, it is your favourite:</Typography>
+          {favourites.length > 0 ? (
+            <Box sx={{ width: 640, height: 600, overflowY: 'scroll' }}>
+              <ImageList variant="masonry" cols={3} gap={8}>
+                {favourites.map((favourite) => (
+                  <ImageListItem key={favourite.id}>
+                    {favourite.image && favourite.image.url ? (
+                      
+                        <img
+                          srcSet={`${favourite.image.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                          src={`${favourite.image.url}?w=248&fit=crop&auto=format`}
+                          alt={favourite.id}
+                        />): (
+                          <p>Image URL not available</p>
+                        )}
+                        <ImageListItemBar
+                          sx={{
+                            background:
+                              'linear-gradient(to top, rgba(0,0,0,0.7) 0%, ' +
+                              'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                          }}
+                          position="bottom"
+                          actionIcon={
+                            <IconButton
+                              sx={{ color: 'red' }}
+                              onClick={() => handleDeleteFavouriteImage(favourite.id)}
+                            >
+                              <FavoriteIcon />
+                            </IconButton>
+                          }
+                          actionPosition="right"
+                        />
+                      </ImageListItem>
+                    ) )}
+              </ImageList>
+            </Box>
           ) : (
-            <p>Image URL not available</p>
+            <p>No favourite images yet.</p>
           )}
-        </Grid>
-      ))}
-    </Grid>
-  ) : (
-    <p>No favourite images yet.</p>
-  )}
-</>
+        </>
       )}
     </div>
   );
-          }
+}
+
 export default FavouritesPage;

@@ -10,23 +10,25 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState(""); // Додали state для displayName
+  const [displayName, setDisplayName] = useState(""); 
   const { signUp } = useUserAuth();
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    // setError("");
     try {
-      await signUp(email, password, displayName); // Передали displayName
+      await signUp(email, password, displayName); 
       navigate("/");
     } catch (err) {
-      setError(err.message);
+      // setError(err.message);
+      Notify.failure('Check the data is correct');
     }
   };
 
@@ -34,12 +36,15 @@ export default function SignUp() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
+       
+          sx={{height: 680,
+            overflowY: 'scroll' ,
+             marginTop: 8,
+             display: 'flex',
+             flexDirection: 'column',
+             alignItems: 'center',
+           }}
+      
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
@@ -58,7 +63,7 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
-                onChange={(e) => setDisplayName(e.target.value)} // Додали onChange для displayName
+                onChange={(e) => setDisplayName(e.target.value)} 
               />
             </Grid>
             <Grid item xs={12} sm={6}>

@@ -12,23 +12,23 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useUserAuth } from "../../context/UserAuthContext";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export default function SignIn() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
     const { logIn } = useUserAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError("");
+        
         try {
           await logIn(email, password);
           navigate("/home");
         } catch (err) {
-          setError(err.message);
+          Notify.failure('User not found, check the data is correct');
         }
       };
 
@@ -36,8 +36,10 @@ export default function SignIn() {
     
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        
         <Box
-          sx={{
+          sx={{height: 680,
+           overflowY: 'scroll' ,
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',

@@ -91,6 +91,7 @@ export const addVote = (userId, currentDogId, liked) => {
       dispatch(fetchVotes(userId));
 
     } catch (error) {
+
       dispatch({ type: ADD_VOTE_FAILURE, payload: error.message });
     }
   };
@@ -116,6 +117,7 @@ export const fetchVotes = (userId) => {
         throw new Error('Failed to fetch votes');
       }
     } catch (error) {
+
       dispatch({ type: VOTES_FETCH_FAILURE, payload: error.message });
     }
   };
@@ -156,7 +158,7 @@ export const addFavouriteImage = (currentDogId, userId) => async (dispatch) => {
     await axios.post('https://api.thedogapi.com/v1/favourites', post_body, { headers });
     dispatch({ type: FAVOURITE_IMAGE, image_id: currentDogId });
   } catch (error) {
-    console.error(error);
+
     dispatch({ type: CLEAR_ERROR, payload: error.response.data.message });
   }
 };
@@ -167,7 +169,7 @@ export const fetchFavourites = (userId) => async (dispatch, getState) => {
       limit: getState().limit,
       order: 'DESC',
       page: getState().page - 1,
-      sub_id: userId, // Додано sub_id до параметрів запиту
+      sub_id: userId, 
     };
 
     const headers = {
@@ -197,8 +199,12 @@ export const fetchFavourites = (userId) => async (dispatch, getState) => {
 
 export const deleteFavouriteImage = (favourite_id) => async (dispatch) => {
   try {
-    await axios.delete(`https://api.thedogapi.com/v1/favourites/${favourite_id}`);
-    dispatch({ type: DELETE_FAVOURITE_IMAGE });
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-api-key': 'live_kssrbyIko7YpwOartoJZPYx2nHw3N8AQgYc2QgxYmSHsECmqg49E665tQREEndhU',
+    };
+    await axios.delete(`https://api.thedogapi.com/v1/favourites/${favourite_id}`,{ headers });
+    dispatch({ type: DELETE_FAVOURITE_IMAGE, favouriteId: favourite_id });
     dispatch(fetchFavourites());
   } catch (error) {
     console.error(error);

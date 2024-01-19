@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import styles from "./NavBarBreeds.module.scss"
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
@@ -23,15 +21,15 @@ function NavBarBreeds() {
     dispatch(sendID(selectedId));
   };
 
-  const handleSortToggle = () => {
-    setSortAscending((prevSort) => !prevSort);
-  };
+  // const handleSortToggle = () => {
+  //   setSortAscending((prevSort) => !prevSort);
+  // };
 
-  const sortedBreeds = [...dogs].sort((a, b) => {
-    const nameA = a.name.toUpperCase();
-    const nameB = b.name.toUpperCase();
-    return sortAscending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
-  });
+  // const sortedBreeds = [...dogs].sort((a, b) => {
+  //   const nameA = a.name.toUpperCase();
+  //   const nameB = b.name.toUpperCase();
+  //   return sortAscending ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+  // });
 
 
   return (

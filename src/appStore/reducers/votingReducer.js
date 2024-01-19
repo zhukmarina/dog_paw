@@ -148,8 +148,12 @@ export const votingReducer = (state = initialState, action) => {
         favourites: [...state.favourites, { image_id, sub_id: 'User-123' }], // Змінено, щоб додати об'єкт безпосередньо тут
       };
 
-    case DELETE_FAVOURITE_IMAGE:
-      return state;
+      case DELETE_FAVOURITE_IMAGE:
+        
+        return {
+          ...state,
+          favourites: state.favourites.filter(favourite => favourite.id !== action.favouriteId),
+        };
 
     case CLEAR_ERROR:
       return { ...state, error_message: action.payload };

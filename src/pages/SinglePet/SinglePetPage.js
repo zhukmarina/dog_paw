@@ -4,9 +4,13 @@ import styles from "./SinglePetPage.module.scss"
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import BreedCarousel from "../../components/BreedCarousel/BreedCarousel";
 
+// import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+
 export default function SingleDog() {
   const [dog, setDog] = useState([])
   const { name } = useParams()
+
 
   useEffect(() => {
     const fetchSingleDogData = async () => {
@@ -16,9 +20,10 @@ export default function SingleDog() {
         )
         const data = await res.json()
         setDog(data)
-        console.log(data)
+        
       } catch (error) {
-        console.error(error)
+        console.error(error);
+        
       }
     }
 
@@ -42,6 +47,7 @@ export default function SingleDog() {
                 </div></Link>
               <div className={styles.titleNav}>BREEDS</div>
               <div className={styles.singleId}>{item.id}</div>
+             
             </div>
 
 

@@ -15,8 +15,12 @@
 
 
 .galleryFilter{
-    width: 640px;
+    width: 690px;
+    height: 600px;
     border-radius: 20px;
     background: #FFF;
     padding: 20px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
 }

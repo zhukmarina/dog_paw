@@ -16,3 +16,4 @@ SITE FUNCTIONALITY:
 
 ![Image alt](https://github.com/zhukmarina/dog_paw/blob/main/public/img/dogPaw.png)
 ![Image alt](https://github.com/zhukmarina/dog_paw/blob/main/public/img/dogPaw1.png)
+![Image alt](https://github.com/zhukmarina/dog_paw/blob/main/public/img/dogPaw2.png)

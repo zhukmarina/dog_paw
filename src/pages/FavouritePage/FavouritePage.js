@@ -1,4 +1,3 @@
-// FavouritesPage.js
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFavourites, deleteFavouriteImage } from '../../appStore/actionCreators/voteActionCreators';

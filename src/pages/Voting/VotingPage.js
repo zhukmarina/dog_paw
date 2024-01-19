@@ -1,4 +1,3 @@
-// VotingPage.js
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDogsForVoting, addVote, fetchFavourites, addFavouriteImage, deleteFavouriteImage } from '../../appStore/actionCreators/voteActionCreators'; 

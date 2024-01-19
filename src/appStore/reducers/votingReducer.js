@@ -145,7 +145,7 @@ export const votingReducer = (state = initialState, action) => {
       const image_id = action.image_id; 
       return {
         ...state,
-        favourites: [...state.favourites, { image_id, sub_id: 'User-123' }], // Змінено, щоб додати об'єкт безпосередньо тут
+        favourites: [...state.favourites, { image_id, sub_id: 'User-123' }],
       };
 
       case DELETE_FAVOURITE_IMAGE:

@@ -1,6 +1,10 @@
 "Dog Paw"
 
-Code Technologies: REACT+REDUX;
+Code Technologies:
+ REACT+REDUX;
+ Firebase;
+ Mui;
+
 SITE FUNCTIONALITY:
 * User registration and authorization;
 * Voting: adding/removing a vote, viewing votes for an authorized user;
@@ -11,3 +15,4 @@ SITE FUNCTIONALITY:
 * Dog search.
 
 ![Image alt](https://github.com/zhukmarina/dog_paw/blob/main/public/img/dogPaw.png)
+![Image alt](https://github.com/zhukmarina/dog_paw/blob/main/public/img/dogPaw1.png)
